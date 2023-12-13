@@ -3,8 +3,8 @@ import React, { useContext } from 'react'
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom'
 import Loader from '../../loader/Loader';
-import ReactImageMagnify from 'react-image-magnify';
 import { CartContext } from '../context/CartContext';
+import './../../../index.css'
 
 export default function Product() {
 
@@ -17,7 +17,7 @@ export default function Product() {
     }
 
     const {data,isLoading} = useQuery('product-detail',getProductDetails);
-    
+    console.log(data);
     const addToCart = async(productId)=>{
       const result = await addToCartContext(productId)
 
@@ -30,24 +30,9 @@ export default function Product() {
 
   return (
     <div className="container">
-      <div className="row">
+      <div className="row d-flex bg-danger">
         <div className="col-lg-5 my-3">
-          <ReactImageMagnify
-            {...{
-              smallImage: {
-                alt: data.name,
-                isFluidWidth: true,
-                src: data.mainImage.secure_url,
-              },
-              largeImage: {
-                src: data.mainImage.secure_url,
-                width: 1000,
-                height: 1600,
-              },
-              enlargedImagePosition: 'over',
-              isHintEnabled:true,
-            }}
-          />
+          <img src={data.mainImage.secure_url} className='width'/>
         </div>
         <div className="col-lg-7 mt-5">
           <h6>{data.name}</h6>

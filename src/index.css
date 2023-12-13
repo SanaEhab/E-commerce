@@ -25,3 +25,7 @@ body{
     border-radius: 6px !important;
 }
 
+.width{
+    width: 400px;
+    height: 450px;
+}
