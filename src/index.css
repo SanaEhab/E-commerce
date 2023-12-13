@@ -1,0 +1,27 @@
+.text-blue{
+    color: rgb(4, 62, 109);
+}
+body{
+    background-color: rgb(210, 232, 249);
+
+}
+
+.form-part{
+    background-color: rgb(167, 209, 244);
+    border-radius: 10px !important;
+}
+.form-part .login-btn,.form-part .register-btn{
+    background-color: #f8ecec;
+    border-radius: 6px !important;
+    border: 1px solid #8f8d8d;
+}
+.input-group{
+    display: inline-block;
+}
+
+.input-group .input-field{
+    width: 75% !important;
+    margin: 15px auto 5px !important;
+    border-radius: 6px !important;
+}
+
