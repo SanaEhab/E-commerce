@@ -20,7 +20,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top pt-3">
         <div className="container">
           <a className="navbar-brand text-blue" href="#" >
             E-Shop
@@ -38,8 +38,8 @@ export default function Navbar() {
           </button>
           <div className="collapse navbar-collapse " id="navbarSupportedContent">
             <ul className="navbar-nav m-auto mb-2 mb-lg-0 ">
-              <li className="nav-item ">
-                <Link className="nav-link active text-blue" aria-current="page" to="/">
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/">
                   Home
                 </Link>
               </li>
@@ -56,7 +56,7 @@ export default function Navbar() {
               {userToken? (
                 <li className="nav-item ">
                   <Link className="nav-link text-blue" to="/cart">
-                  Cart {count}
+                  Cart  <span className="badge badge-blue rounded-5">{count}</span>
                   </Link>
                 </li>
               ):null}

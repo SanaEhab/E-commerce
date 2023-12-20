@@ -7,8 +7,8 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import './Categories.css'
 import { Link } from 'react-router-dom';
+import './Categories.css'
 
 export default function Categories() {
 
@@ -25,7 +25,7 @@ export default function Categories() {
   }
 
   return (
-    <div className='container py-5'>
+    <div className='container catigories vh-100'>
       <Swiper
        modules={[Navigation, Pagination, Autoplay]}
       spaceBetween={50}

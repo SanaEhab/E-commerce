@@ -1,12 +1,13 @@
 import axios from "axios";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+
 
 export const CartContext = createContext(null);
 
 export function CartContextProvider({children}){
 
-    const [count, setCount] = useState(0);
+    let [count, setCount] = useState(0);
 
     const addToCartContext = async(productId)=>{
         try{
@@ -27,10 +28,11 @@ export function CartContextProvider({children}){
                     theme: "light",
                     });
             }
+            setCount(++count);
             return data;
         }
         catch(error){
-            console.log(error);
+            return error;
         }
     }
 
@@ -41,7 +43,6 @@ export function CartContextProvider({children}){
         setCount(data.count);
         return data;
     }
-
     const removeItemContext =async(productId)=>{
         try{
             const token =localStorage.getItem("userToken");
@@ -59,17 +60,62 @@ export function CartContextProvider({children}){
                     theme: "light",
                     });
             }
+            setCount(--count);
             return data;
-            
         }
         catch(error){
-            console.log(error);
+            return error;
         }
         
     }
 
-    return <CartContext.Provider value={{addToCartContext, getCartContext,removeItemContext,count}}>
+    const clearCartContext = async()=>{
+        try{
+            const token = localStorage.getItem('userToken');
+            const {data} = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/clear`,null,
+            {headers:{Authorization:`Tariq__${token}`}});
+            if(data.message=="success"){
+                toast.success('Cart has been cleared', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
+            }
+            setCount(data.valueOf.length);
+        }
+        catch(error){
+            return error;
+        }
+    }
+
+    const increaseQuantity = async(productId)=>{
+        try{
+            const token =localStorage.getItem("userToken");
+            const {data} = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/incraseQuantity`,
+            {productId},
+            {headers:{Authorization:`Tariq__${token}`}});
+        }
+        catch(error){
+            return error;
+        }
+    }
+
+    const decreaseQuantity = async(productId)=>{
+        const token = localStorage.getItem("userToken");
+        const {data} = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/decraseQuantity`,
+        {productId},
+        {headers:{Authorization:`Tariq__${token}`}});
+    }
+
+    return(
+        <CartContext.Provider value={{addToCartContext, getCartContext,removeItemContext,count, setCount,clearCartContext,increaseQuantity,decreaseQuantity}}>
         {children}
-    </CartContext.Provider>
+        </CartContext.Provider>
+    )
 
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Input from "../../pages/Input";
 import { useFormik } from "formik";
 import { loginSchema } from "../validation/Validation";
@@ -24,11 +24,9 @@ export default function Login() {
 
 
   const onSubmit = async values=>{
-
     const {data} = await axios.post(`https://ecommerce-node4.vercel.app/auth/signin `, values);
 
     if(data.message=="success"){
-
       // to store the data in the browser
       localStorage.setItem("userToken",data.token);
       setUserToken(data.token);
@@ -90,7 +88,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="container py-5">
+      <div className="container py-5 vh-100">
         <h2 className="pb-3 text-center">Login</h2>
         <form onSubmit={formik.handleSubmit} className="py-3 text-center m-auto w-50 form-part">
           {renderInput}

@@ -21,12 +21,18 @@ export default function CategoriesDetails() {
     }
 
   return (
-    <div className='products'>
+    <div className='products overflow-x-hidden mb-5'>
         {data.length? data.map((product)=>
             <div className='product' key={product._id}>
-                <img src={product.mainImage.secure_url}/>
-                <h4>{product.name}</h4>
-                <Link className='link' to={`/products/${product._id}`}>Tap here to see more details about this product</Link>
+                <div className='row'>
+                    <div className='col-lg-6 d-flex justify-content-center pt-3'>
+                        <img src={product.mainImage.secure_url}/>
+                    </div>
+                    <div className='col-lg-6 pt-5'>
+                        <h4>{product.name}</h4>
+                        <Link className='link' to={`/products/${product._id}`}>Details</Link>
+                    </div>
+                </div>
             </div>
         ): 'no products'}
     </div>

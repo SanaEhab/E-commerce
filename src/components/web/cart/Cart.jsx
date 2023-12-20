@@ -2,23 +2,38 @@ import React, { useContext } from 'react'
 import { CartContext } from '../context/CartContext';
 import Loader from '../../loader/Loader';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import './Cart.css'
 
 export default function Cart() {
   
-    const { getCartContext,removeItemContext } = useContext(CartContext);
-    
+    const { getCartContext,removeItemContext,clearCartContext,increaseQuantity,decreaseQuantity} = useContext(CartContext);
+
   const getCart = async () => {
     const result = await getCartContext();
     return result;
   }
+  const { data, isLoading, refetch } = useQuery("Cart", getCart);
 
-    const removeItem = async(productId)=>{
-        const res = await removeItemContext(productId);
-        return res;
-    }
+  const removeItem = async(productId)=>{
+    const res = await removeItemContext(productId);
+    refetch();
+  }
 
-  const { data, isLoading } = useQuery("Cart", getCart);
+  const clearCart = async()=>{
+    const results = await clearCartContext();
+    refetch();
+  }
+
+  const increase = async(productId)=>{
+    const response = await increaseQuantity(productId);
+    refetch();
+  }
+
+  const decrease = async(productId)=>{
+    const res = await decreaseQuantity(productId);
+    refetch();
+  }
 
   if (isLoading) {
     return <Loader />;
@@ -26,22 +41,23 @@ export default function Cart() {
  
   
   return (
-        <div className="cart">
+      <div className="cart">
       <div className="container">
         <div className="row">
-          <div className="cart-items">
+          <div className='col-lg-12'>
+          <div className="cart-items m-auto w-75">
             <div className="products" id="products">
               <div className="item">
-                <div className="product-info">
+                <div className="product-info text-blue">
                   <h2>Product</h2>
                 </div>
-                <div className="quantity">
+                <div className="quantity text-blue">
                   <h2>Quantity</h2>
                 </div>
-                <div className="price">
+                <div className="price text-blue">
                   <h2>Price</h2>
                 </div>
-                <div className="subtotal">
+                <div className="subtotal text-blue">
                   <h2>Subtotal</h2>
                 </div>
               </div>
@@ -52,9 +68,8 @@ export default function Cart() {
                 <img src={product.details.mainImage.secure_url}/>
                 <div className="product-details">
                   <h2>{product.details.name}</h2>
-                  <span>Color:black</span>
                   <a href="#" onClick={()=>removeItem(product.details._id)}>
-                    <svg
+                    <svg className='rounded-5 badge-blue'
                       xmlns="http://www.w3.org/2000/svg"
                       width={24}
                       height={25}
@@ -65,7 +80,7 @@ export default function Cart() {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M5.29289 5.79289C5.68342 5.40237 6.31658 5.40237 6.70711 5.79289L12 11.0858L17.2929 5.79289C17.6834 5.40237 18.3166 5.40237 18.7071 5.79289C19.0976 6.18342 19.0976 6.81658 18.7071 7.20711L13.4142 12.5L18.7071 17.7929C19.0976 18.1834 19.0976 18.8166 18.7071 19.2071C18.3166 19.5976 17.6834 19.5976 17.2929 19.2071L12 13.9142L6.70711 19.2071C6.31658 19.5976 5.68342 19.5976 5.29289 19.2071C4.90237 18.8166 4.90237 18.1834 5.29289 17.7929L10.5858 12.5L5.29289 7.20711C4.90237 6.81658 4.90237 6.18342 5.29289 5.79289Z"
-                        fill="#6C7275"
+                        fill="#fff"
                       />
                     </svg>
                     remove
@@ -73,12 +88,12 @@ export default function Cart() {
                 </div>
               </div>
               <div className="quantity">
-                <button>
-                  <svg
+                <button className='me-1' onClick={()=>decrease(product.details._id)}>
+                  <svg className='minus'
                     xmlns="http://www.w3.org/2000/svg"
                     width={16}
                     height={17}
-                    viewBox="0 0 16 17"
+                    viewBox="0 4 16 17"
                     fill="none"
                   >
                     <path
@@ -91,12 +106,12 @@ export default function Cart() {
                   </svg>
                 </button>
                 <span>{product.quantity}</span>
-                <button>
-                  <svg
+                <button className='ms-1' onClick={()=>increase(product.details._id)}>
+                  <svg className='pluse'
                     xmlns="http://www.w3.org/2000/svg"
                     width={16}
                     height={17}
-                    viewBox="0 0 16 17"
+                    viewBox="0 4 16 17"
                     fill="none"
                   >
                     <path
@@ -115,43 +130,17 @@ export default function Cart() {
               ):<h3>The cart is empty</h3>}
               
             </div>
-            <div className="cart-summary">
-                <h2>Cart summary</h2>
-                <div className="summery-items">
-                <div className="summary-item">
-                    <div className="form-group">
-                    <input type="radio" /> <label>Free shipping</label>
-                    </div>
-                    <span>$0.00</span>
-                </div>
-                <div className="summary-item">
-                    <div className="form-group">
-                    <input type="radio" /> <label>Express shipping</label>
-                    </div>
-                    <span>+$15.00</span>
-                </div>
-                <div className="summary-item">
-                    <div className="form-group">
-                    <input type="radio" /> <label>Pick Up</label>
-                    </div>
-                    <span>%21.00</span>
-                </div>
-                <div className="summary-footer">
-                    <label>Subtotal</label>
-                    <span>$125</span>
-                </div>
-                <div className="summary-footer">
-                    <label className="total">Total</label>
-                    <span>$1345.00</span>
-                </div>
-                <div className="checkout">
-                    <a href="#">Chekout</a>
-                </div>
-                </div>
-                </div>
+           
           </div>
-          <div>
           </div>
+        </div>
+        <div className='text-center mt-3 btns-section'>
+        <button className='btn btn-outline-danger mt-2' onClick={()=>clearCart()}>
+           Clear the cart
+          </button>
+          <button className='btn btn-outline-primary mt-2 ms-2'>
+           <Link className='text-decoration-none' to='/order'>Check out</Link>
+          </button>
         </div>
       </div>
     </div>

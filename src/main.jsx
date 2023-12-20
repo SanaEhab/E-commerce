@@ -8,17 +8,24 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import UserContextProvider from './components/web/context/User.jsx';
 import App from './App.jsx'
 import './index.css' 
+import { CartContextProvider } from './components/web/context/CartContext.jsx';
+import OrderContextProvider from './components/web/context/OrderContext.jsx';
 
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  // context order not important but if there is a context that depends on other one the parent should be before the child
   <>
   <UserContextProvider>
-    <QueryClientProvider client={queryClient}>
-      <ToastContainer/>
-      <App />
-    </QueryClientProvider>
+    <CartContextProvider>
+      <OrderContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <ToastContainer/>
+        <App />
+      </QueryClientProvider>
+      </OrderContextProvider>
+      </CartContextProvider>
   </UserContextProvider>
   </>
   

@@ -101,7 +101,7 @@ export default function Register() {
 
   return (
     <>
-      <div className="container py-5 ">
+      <div className="container py-5 vh-100">
         <h2 className="pb-3 text-center">Create account</h2>
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data" className="py-3 text-center m-auto w-50 form-part">
           {renderInput}
