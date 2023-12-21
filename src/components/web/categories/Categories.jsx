@@ -45,7 +45,7 @@ export default function Categories() {
       {data.categories.length?data.categories.map( (category)=>
       <SwiperSlide key={category._id}>
         <Link to={`/products/category/${category._id}`}>
-        <img src={category.image.secure_url}/>
+        <img src={category.image.secure_url} alt={category.name}/>
         </Link>
         </SwiperSlide>
       ):'no category found'}

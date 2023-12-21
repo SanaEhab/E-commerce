@@ -49,9 +49,9 @@ export default function Navbar() {
                 </Link>
               </li>
               <li className="nav-item ">
-                <a className="nav-link text-blue" href="#">
+                <Link className="nav-link text-blue" to="/products">
                   Products
-                </a>
+                </Link>
               </li>
               {userToken? (
                 <li className="nav-item ">

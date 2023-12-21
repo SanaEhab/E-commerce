@@ -26,7 +26,7 @@ export default function CategoriesDetails() {
             <div className='product' key={product._id}>
                 <div className='row'>
                     <div className='col-lg-6 d-flex justify-content-center pt-3'>
-                        <img src={product.mainImage.secure_url}/>
+                        <img src={product.mainImage.secure_url} alt={product.name}/>
                     </div>
                     <div className='col-lg-6 pt-5'>
                         <h4>{product.name}</h4>

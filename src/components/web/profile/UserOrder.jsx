@@ -12,8 +12,8 @@ export default function UserOrder() {
     
   return (
         <div className='pt-5'>
-            {orders && orders.length > 0 ?(orders.map((item)=>(
-                <div key={item._id}>
+            {orders && orders.length > 0 ?(orders.map((item,index)=>(
+                <div key={index}>
                 <h6>Order ID: {item._id} </h6>
                     <table className='table table-bordered w-50'>
                         <thead className='thead-dark'>

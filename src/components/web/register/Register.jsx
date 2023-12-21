@@ -84,7 +84,7 @@ export default function Register() {
     }
   ];
 
-  const renderInput = inputs.map((ele, index) => (
+  const renderInput = inputs.map((ele, index)=> (
     <Input
       type={ele.type}
       id={ele.id}
@@ -100,14 +100,12 @@ export default function Register() {
   ));
 
   return (
-    <>
-      <div className="container py-5 vh-100">
-        <h2 className="pb-3 text-center">Create account</h2>
-        <form onSubmit={formik.handleSubmit} encType="multipart/form-data" className="py-3 text-center m-auto w-50 form-part">
-          {renderInput}
-          <button className="register-btn" type="submit" disabled={!formik.isValid}>Register</button>
-        </form>
+    <div className="container py-5 vh-100">
+      <h2 className="pb-3 text-center">Create account</h2>
+      <form onSubmit={formik.handleSubmit} encType="multipart/form-data" className="py-3 text-center m-auto w-50 form-part">
+        {renderInput}
+        <button className="register-btn" type="submit" disabled={!formik.isValid}>Register</button>
+      </form>
       </div>
-    </>
   );
 }

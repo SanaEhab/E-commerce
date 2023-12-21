@@ -65,7 +65,7 @@ export default function Cart() {
               {data?.products?(data.products.map((product)=>
               <div className="item" key={product._id}>
               <div className="product-info">
-                <img src={product.details.mainImage.secure_url}/>
+                <img src={product.details.mainImage.secure_url} alt={product.details.name}/>
                 <div className="product-details">
                   <h2>{product.details.name}</h2>
                   <a href="#" onClick={()=>removeItem(product.details._id)}>

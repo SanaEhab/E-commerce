@@ -12,7 +12,7 @@ export default function UserInfo() {
   return (
     <div className='pt-5'>
         <h3 className='text-blue'>{userData.userName}</h3>
-        <img src={userData.image.secure_url} alt='user image' className='mt-4'/>
+        <img src={userData.image.secure_url} alt={userData.userName} className='mt-4'/>
     </div>
   )
 }

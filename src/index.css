@@ -8,6 +8,7 @@ body{
     margin-top: 65px;
     background-color: rgb(210, 232, 249);
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .form-part{
