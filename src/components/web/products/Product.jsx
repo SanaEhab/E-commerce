@@ -47,10 +47,11 @@ export default function Product() {
     }
 
     const onSubmit = async(values)=>{
-      const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/products/${productId}/review`,values,
-      {headers:{Authorization:`Tariq__${userToken}`}});
-      console.log(data)
-      if(data.message=="success"){
+      try{
+        const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/products/${productId}/review`,values,
+        {headers:{Authorization:`Tariq__${userToken}`}});
+        console.log(data)
+        if(data.message=="success"){
         formik.resetForm();
         toast.success('Thanks for your shopping', {
           position: "top-right",
@@ -62,6 +63,22 @@ export default function Product() {
           progress: undefined,
           theme: "light",
           });
+      }
+
+      }
+      catch(error){
+        if(error.message=='Request failed with status code 400'){
+          toast.error('Cant add review', {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+        }
       }
     }
 

@@ -27,11 +27,11 @@ export default function Order() {
     }
 
     const onSubmit = async values=>{
-
-        const token = localStorage.getItem("userToken");
-        const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/order`, values,
-        {headers:{Authorization:`Tariq__${token}`}});
-        if(data.message=="success"){
+        try{
+            const token = localStorage.getItem("userToken");
+            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/order`, values,
+            {headers:{Authorization:`Tariq__${token}`}});
+            if(data.message=="success"){
             formik.resetForm();
             toast.success('Order has been submited', {
               position: "top-right",
@@ -44,6 +44,10 @@ export default function Order() {
               theme: "light",
               });
           }
+        }
+        catch(error){
+            console.log(error);
+        }
     }
 
     const formik = useFormik({
@@ -112,7 +116,7 @@ export default function Order() {
             <form onSubmit={formik.handleSubmit} className="py-3 text-center m-auto w-50 form-part">
                 {renderInput}
             <button className="login-btn" type="submit" disabled={!formik.isValid}>
-                <Link className='text-decoration-none text-black' to='/profile/order'> Submit your order</Link>
+                <Link className='text-decoration-none text-black'> Submit your order</Link>
             </button>
             </form>
             </div>

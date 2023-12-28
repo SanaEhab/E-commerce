@@ -14,8 +14,7 @@ export function CartContextProvider({children}){
             const token =localStorage.getItem("userToken");
             const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/cart`,
             {productId},
-            {headers:{Authorization:`Tariq__${token}`}}
-            );
+            {headers:{Authorization:`Tariq__${token}`}});
             if(data.message=="success"){
                 toast.success('product added successfully', {
                     position: "top-right",
@@ -32,10 +31,20 @@ export function CartContextProvider({children}){
             return data;
         }
         catch(error){
-            return error;
+            if(error){
+                toast.error('The product has already been added', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    });
         }
     }
-
+    }
     const getCartContext = async()=>{
         const token = localStorage.getItem("userToken");
         const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/cart`,
