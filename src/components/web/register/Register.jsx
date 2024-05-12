@@ -27,7 +27,7 @@ export default function Register() {
     formData.append("password", values.password);
     formData.append("image", values.image);
 
-    const {data} = await axios.post(`https://ecommerce-node4.vercel.app/auth/signup`, formData);
+    const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, formData);
 
     if(data.message=="success"){
       formik.resetForm();

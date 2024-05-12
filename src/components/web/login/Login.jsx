@@ -24,7 +24,8 @@ export default function Login() {
 
 
   const onSubmit = async values=>{
-    const {data} = await axios.post(`https://ecommerce-node4.vercel.app/auth/signin `, values);
+    
+    const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signin `, values);
 
     if(data.message=="success"){
       // to store the data in the browser
